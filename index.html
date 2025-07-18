@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data6 Pilot Project Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            
+            <!-- Title & Subtitle -->
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Project Pilot Tracker</h1>
+                <p class="text-sm text-gray-500">Track progress, manage escalations, and collaborate across all pilot projects</p>
+            </div>
+
+                <!-- Action Buttons -->
+            <div class="flex gap-3">
+                <button id="add-escalation-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-semibold shadow-sm">
+                    + New Escalation
+                </button>
+                <button id="add-comment-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-semibold shadow-sm">
+                    + Add Comment
+                </button>
+            </div>
+        </div>
+    </header>
+
+     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Dashboard Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6 card-hover transition-all">
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Pilot 1</h3>
+                <div class="flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                    <span class="text-sm font-medium text-green-700">On Track</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 75%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">75% Complete</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6 card-hover transition-all">
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Pilot 2</h3>
+                <div class="flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-amber-500 mr-2"></div>
+                    <span class="text-sm font-medium text-amber-700">At Risk</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-amber-500 h-2.5 rounded-full" style="width: 45%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">45% Complete</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6 card-hover transition-all">
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Pilot 3</h3>
+                <div class="flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                    <span class="text-sm font-medium text-red-700">Blocked</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-red-500 h-2.5 rounded-full" style="width: 20%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">20% Complete</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6 card-hover transition-all">
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Pilot 4</h3>
+                <div class="flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                    <span class="text-sm font-medium text-green-700">On Track</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 60%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">60% Complete</p>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8">
+                    <button class="tab-btn border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="timeline">
+                        Timeline
+                    </button>
+                    <button class="tab-btn border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="escalations">
+                        Escalations
+                    </button>
+                    <button class="tab-btn border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="comments">
+                        Comments
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tab-content">
+            <!-- Timeline Tab (Default Active) -->
+            <div id="timeline" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Pilot 1 Timeline -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 1 Timeline</h3>
+                            <div class="rag-green text-xs font-medium px-2.5 py-0.5 rounded-full border">On Track</div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 1 Complete</h4>
+                                    <p class="text-xs text-gray-500">April 15, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Initial requirements gathered and approved</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 2 Complete</h4>
+                                    <p class="text-xs text-gray-500">May 20, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Development completed and testing initiated</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-blue-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 3 In Progress</h4>
+                                    <p class="text-xs text-gray-500">Current</p>
+                                    <p class="text-sm text-gray-600 mt-1">User acceptance testing underway</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 4 Pending</h4>
+                                    <p class="text-xs text-gray-400">Scheduled for July 15, 2023</p>
+                                    <p class="text-sm text-gray-400 mt-1">Final deployment and handover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 2 Timeline -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 2 Timeline</h3>
+                            <div class="rag-amber text-xs font-medium px-2.5 py-0.5 rounded-full border">At Risk</div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 1 Complete</h4>
+                                    <p class="text-xs text-gray-500">March 10, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Initial requirements gathered and approved</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-amber-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 2 Delayed</h4>
+                                    <p class="text-xs text-gray-500">Current</p>
+                                    <p class="text-sm text-gray-600 mt-1">Development facing resource constraints</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 3 Pending</h4>
+                                    <p class="text-xs text-gray-400">Scheduled for August 5, 2023</p>
+                                    <p class="text-sm text-gray-400 mt-1">Testing and validation</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 4 Pending</h4>
+                                    <p class="text-xs text-gray-400">Scheduled for September 20, 2023</p>
+                                    <p class="text-sm text-gray-400 mt-1">Final deployment and handover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 3 Timeline -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 3 Timeline</h3>
+                            <div class="rag-red text-xs font-medium px-2.5 py-0.5 rounded-full border">Blocked</div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 1 Complete</h4>
+                                    <p class="text-xs text-gray-500">May 5, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Initial requirements gathered and approved</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-red-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 2 Blocked</h4>
+                                    <p class="text-xs text-gray-500">Current</p>
+                                    <p class="text-sm text-gray-600 mt-1">Critical dependency from vendor not available</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 3 Pending</h4>
+                                    <p class="text-xs text-gray-400">TBD</p>
+                                    <p class="text-sm text-gray-400 mt-1">Testing and validation</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 4 Pending</h4>
+                                    <p class="text-xs text-gray-400">TBD</p>
+                                    <p class="text-sm text-gray-400 mt-1">Final deployment and handover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 4 Timeline -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 4 Timeline</h3>
+                            <div class="rag-green text-xs font-medium px-2.5 py-0.5 rounded-full border">On Track</div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 1 Complete</h4>
+                                    <p class="text-xs text-gray-500">April 25, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Initial requirements gathered and approved</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-green-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 2 Complete</h4>
+                                    <p class="text-xs text-gray-500">June 10, 2023</p>
+                                    <p class="text-sm text-gray-600 mt-1">Development completed ahead of schedule</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-blue-500"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-900">Phase 3 In Progress</h4>
+                                    <p class="text-xs text-gray-500">Current</p>
+                                    <p class="text-sm text-gray-600 mt-1">Testing and validation</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-gray-300"></div>
+                                <div class="timeline-line"></div>
+                                <div class="ml-2">
+                                    <h4 class="text-sm font-medium text-gray-400">Phase 4 Pending</h4>
+                                    <p class="text-xs text-gray-400">Scheduled for July 30, 2023</p>
+                                    <p class="text-sm text-gray-400 mt-1">Final deployment and handover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Escalations Tab -->
+            <div id="escalations" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow-md enhanced-shadow overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900">Active Escalations</h3>
+                        <p class="text-sm text-gray-600">Track and manage blockers across all pilots</p>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pilot</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="escalations-table">
+                                <tr data-escalation-id="ESC-001">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">ESC-001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Pilot 2</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Resource allocation for development team</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Johnson</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">In Progress</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">July 5, 2023</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="update-escalation text-blue-600 hover:text-blue-900 mr-3">Update</button>
+                                        <button class="resolve-escalation text-green-600 hover:text-green-900">Resolve</button>
+                                    </td>
+                                </tr>
+                                <tr data-escalation-id="ESC-002">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">ESC-002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Pilot 3</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Vendor API integration delayed</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chen</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Blocked</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">June 30, 2023</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="update-escalation text-blue-600 hover:text-blue-900 mr-3">Update</button>
+                                        <button class="resolve-escalation text-green-600 hover:text-green-900">Resolve</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comments Tab -->
+            <div id="comments" class="tab-content hidden">
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- Pilot 1 Comments -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 1 Comments</h3>
+                            <button class="add-comment-pilot-btn text-sm text-blue-600 hover:text-blue-800" data-pilot="1">+ Add Comment</button>
+                        </div>
+                        
+                        <div class="space-y-4" id="pilot-1-comments">
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">Alex Thompson</h4>
+                                    <span class="text-xs text-gray-500">June 15, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">User acceptance testing is going well. We've received positive feedback on the new interface.</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">Jamie Rodriguez</h4>
+                                    <span class="text-xs text-gray-500">June 10, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">All test cases have been prepared. Ready to begin UAT next week.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 2 Comments -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 2 Comments</h3>
+                            <button class="add-comment-pilot-btn text-sm text-blue-600 hover:text-blue-800" data-pilot="2">+ Add Comment</button>
+                        </div>
+                        
+                        <div class="space-y-4" id="pilot-2-comments">
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">Sarah Johnson</h4>
+                                    <span class="text-xs text-gray-500">June 12, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Working on securing additional resources to help with the development backlog.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 3 Comments -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 3 Comments</h3>
+                            <button class="add-comment-pilot-btn text-sm text-blue-600 hover:text-blue-800" data-pilot="3">+ Add Comment</button>
+                        </div>
+                        
+                        <div class="space-y-4" id="pilot-3-comments">
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">Michael Chen</h4>
+                                    <span class="text-xs text-gray-500">June 14, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Escalated the API issue to vendor's senior management. Awaiting response.</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">Lisa Wong</h4>
+                                    <span class="text-xs text-gray-500">June 8, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Vendor has acknowledged the issue with their API. They're working on a fix but no ETA provided yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pilot 4 Comments -->
+                    <div class="bg-white rounded-lg shadow-md enhanced-shadow p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900">Pilot 4 Comments</h3>
+                            <button class="add-comment-pilot-btn text-sm text-blue-600 hover:text-blue-800" data-pilot="4">+ Add Comment</button>
+                        </div>
+                        
+                        <div class="space-y-4" id="pilot-4-comments">
+                            <div class="bg-gray-50 rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between">
+                                    <h4 class="text-sm font-medium text-gray-900">David Park</h4>
+                                    <span class="text-xs text-gray-500">June 16, 2023</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Testing is ahead of schedule. We might be able to move up the deployment date.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal for adding escalation -->
+<div id="escalation-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900" id="escalation-modal-title">Add New Escalation</h3>
+        </div>
+        <div class="p-6">
+            <form id="escalation-form">
+                <input type="hidden" id="escalation-id" value="">
+                <div class="mb-4">
+                    <label for="escalation-pilot" class="block text-sm font-medium text-gray-700 mb-1">Pilot</label>
+                    <select id="escalation-pilot" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="1">Pilot 1</option>
+                        <option value="2">Pilot 2</option>
+                        <option value="3">Pilot 3</option>
+                        <option value="4">Pilot 4</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="escalation-issue" class="block text-sm font-medium text-gray-700 mb-1">Issue Description</label>
+                    <textarea id="escalation-issue" rows="3" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="escalation-owner" class="block text-sm font-medium text-gray-700 mb-1">Owner</label>
+                    <input type="text" id="escalation-owner" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="escalation-status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select id="escalation-status" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="In Progress">In Progress</option>
+                        <option value="Blocked">Blocked</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="escalation-date" class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                    <input type="date" id="escalation-date" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </form>
+        </div>
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+            <button id="cancel-escalation" class="bg-white text-gray-700 px-4 py-2 rounded-md text-sm font-medium border border-gray-300 hover:bg-gray-50 mr-2 shadow-sm">Cancel</button>
+            <button id="save-escalation" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">Save Escalation</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding comment -->
+<div id="comment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Add New Comment</h3>
+        </div>
+        <div class="p-6">
+            <form id="comment-form">
+                <div class="mb-4">
+                    <label for="comment-pilot" class="block text-sm font-medium text-gray-700 mb-1">Pilot</label>
+                    <select id="comment-pilot" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="1">Pilot 1</option>
+                        <option value="2">Pilot 2</option>
+                        <option value="3">Pilot 3</option>
+                        <option value="4">Pilot 4</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="comment-name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                    <input type="text" id="comment-name" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="comment-text" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                    <textarea id="comment-text" rows="3" class="w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+            <button id="cancel-comment" class="bg-white text-gray-700 px-4 py-2 rounded-md text-sm font-medium border border-gray-300 hover:bg-gray-50 mr-2 shadow-sm">Cancel</button>
+            <button id="save-comment" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">Save Comment</button>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirm-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Confirm Action</h3>
+        </div>
+        <div class="p-6">
+            <p id="confirm-message" class="text-gray-700">Are you sure you want to resolve this escalation?</p>
+        </div>
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+            <button id="cancel-confirm" class="bg-white text-gray-700 px-4 py-2 rounded-md text-sm font-medium border border-gray-300 hover:bg-gray-50 mr-2 shadow-sm">Cancel</button>
+            <button id="confirm-action" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Reset all tabs
+            tabButtons.forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            tabContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Activate selected tab
+            button.classList.remove('border-transparent', 'text-gray-500');
+            button.classList.add('border-blue-500', 'text-blue-600');
+            
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(tabId).classList.remove('hidden');
+        });
+    });
+    
+    // Escalation modal functionality
+    const escalationModal = document.getElementById('escalation-modal');
+    const addEscalationBtn = document.getElementById('add-escalation-btn');
+    const cancelEscalationBtn = document.getElementById('cancel-escalation');
+    const saveEscalationBtn = document.getElementById('save-escalation');
+    const escalationModalTitle = document.getElementById('escalation-modal-title');
+    let currentEscalationId = null;
+    let isEditMode = false;
+    
+    addEscalationBtn.addEventListener('click', () => {
+        // Reset form for new escalation
+        document.getElementById('escalation-form').reset();
+        document.getElementById('escalation-id').value = '';
+        escalationModalTitle.textContent = 'Add New Escalation';
+        isEditMode = false;
+        currentEscalationId = null;
+        escalationModal.classList.remove('hidden');
+    });
+    
+    cancelEscalationBtn.addEventListener('click', () => {
+        escalationModal.classList.add('hidden');
+    });
+    
+    // Update escalation functionality
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('update-escalation')) {
+            const row = e.target.closest('tr');
+            const escalationId = row.getAttribute('data-escalation-id');
+            currentEscalationId = escalationId;
+            
+            // Get data from the row
+            const cells = row.querySelectorAll('td');
+            const pilot = cells[1].textContent.replace('Pilot ', '');
+            const issue = cells[2].textContent;
+            const owner = cells[3].textContent;
+            const status = cells[4].querySelector('span').textContent;
+            const dueDate = cells[5].textContent;
+            
+            // Format date for input (YYYY-MM-DD)
+            const dateParts = dueDate.split(', ')[0].split(' ');
+            const month = new Date(Date.parse(dateParts[0] + " 1, 2000")).getMonth() + 1;
+            const formattedMonth = month < 10 ? '0' + month : month;
+            const formattedDay = dateParts[1] < 10 ? '0' + dateParts[1] : dateParts[1];
+            const formattedDate = `${dateParts[2]}-${formattedMonth}-${formattedDay}`;
+            
+            // Fill the form
+            document.getElementById('escalation-id').value = escalationId;
+            document.getElementById('escalation-pilot').value = pilot;
+            document.getElementById('escalation-issue').value = issue;
+            document.getElementById('escalation-owner').value = owner;
+            document.getElementById('escalation-status').value = status;
+            document.getElementById('escalation-date').value = formattedDate;
+            
+            // Update modal title and show
+            escalationModalTitle.textContent = 'Update Escalation';
+            isEditMode = true;
+            escalationModal.classList.remove('hidden');
+        }
+    });
+    
+    // Resolve escalation functionality
+    const confirmModal = document.getElementById('confirm-modal');
+    const cancelConfirmBtn = document.getElementById('cancel-confirm');
+    const confirmActionBtn = document.getElementById('confirm-action');
+    let escalationToResolve = null;
+    
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('resolve-escalation')) {
+            const row = e.target.closest('tr');
+            escalationToResolve = row;
+            document.getElementById('confirm-message').textContent = 'Are you sure you want to resolve this escalation?';
+            confirmModal.classList.remove('hidden');
+        }
+    });
+    
+    cancelConfirmBtn.addEventListener('click', () => {
+        confirmModal.classList.add('hidden');
+        escalationToResolve = null;
+    });
+    
+    confirmActionBtn.addEventListener('click', () => {
+        if (escalationToResolve) {
+            // Update status to resolved
+            const statusCell = escalationToResolve.querySelector('td:nth-child(5)');
+            const statusSpan = statusCell.querySelector('span');
+            statusSpan.textContent = 'Resolved';
+            statusSpan.classList.remove('bg-amber-100', 'text-amber-800', 'bg-red-100', 'text-red-800');
+            statusSpan.classList.add('bg-green-100', 'text-green-800');
+            
+            // Disable action buttons
+            const actionCell = escalationToResolve.querySelector('td:nth-child(7)');
+            actionCell.innerHTML = '<span class="text-gray-400">Resolved</span>';
+            
+            // Close modal
+            confirmModal.classList.add('hidden');
+            escalationToResolve = null;
+        }
+    });
+    
+    saveEscalationBtn.addEventListener('click', () => {
+        const escalationId = document.getElementById('escalation-id').value || `ESC-${Math.floor(Math.random() * 900) + 100}`;
+        const pilot = document.getElementById('escalation-pilot').value;
+        const issue = document.getElementById('escalation-issue').value;
+        const owner = document.getElementById('escalation-owner').value;
+        const status = document.getElementById('escalation-status').value;
+        const dueDate = document.getElementById('escalation-date').value;
+        
+        if (!issue || !owner || !dueDate) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        // Format the date
+        const formattedDate = new Date(dueDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Set status class based on selection
+        let statusClass = '';
+        if (status === 'In Progress') {
+            statusClass = 'bg-amber-100 text-amber-800';
+        } else if (status === 'Blocked') {
+            statusClass = 'bg-red-100 text-red-800';
+        } else {
+            statusClass = 'bg-green-100 text-green-800';
+        }
+        
+        if (isEditMode && currentEscalationId) {
+            // Update existing row
+            const row = document.querySelector(`tr[data-escalation-id="${currentEscalationId}"]`);
+            if (row) {
+                const cells = row.querySelectorAll('td');
+                cells[1].textContent = `Pilot ${pilot}`;
+                cells[2].textContent = issue;
+                cells[3].textContent = owner;
+                
+                const statusSpan = cells[4].querySelector('span');
+                statusSpan.textContent = status;
+                statusSpan.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}`;
+                
+                cells[5].textContent = formattedDate;
+            }
+        } else {
+            // Create new escalation row
+            const escalationsTable = document.getElementById('escalations-table');
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-escalation-id', escalationId);
+            
+            newRow.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${escalationId}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Pilot ${pilot}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">${issue}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${owner}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">${status}</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formattedDate}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="update-escalation text-blue-600 hover:text-blue-900 mr-3">Update</button>
+                    <button class="resolve-escalation text-green-600 hover:text-green-900">Resolve</button>
+                </td>
+            `;
+            
+            escalationsTable.appendChild(newRow);
+        }
+        
+        // Reset form and close modal
+        document.getElementById('escalation-form').reset();
+        escalationModal.classList.add('hidden');
+        
+        // Switch to escalations tab
+        document.querySelector('[data-tab="escalations"]').click();
+    });
+    
+    // Comment modal functionality
+    const commentModal = document.getElementById('comment-modal');
+    const addCommentBtn = document.getElementById('add-comment-btn');
+    const cancelCommentBtn = document.getElementById('cancel-comment');
+    const saveCommentBtn = document.getElementById('save-comment');
+    const addCommentPilotBtns = document.querySelectorAll('.add-comment-pilot-btn');
+    
+    addCommentBtn.addEventListener('click', () => {
+        commentModal.classList.remove('hidden');
+    });
+    
+    addCommentPilotBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            const pilotId = button.getAttribute('data-pilot');
+            document.getElementById('comment-pilot').value = pilotId;
+            commentModal.classList.remove('hidden');
+        });
+    });
+    
+    cancelCommentBtn.addEventListener('click', () => {
+        commentModal.classList.add('hidden');
+    });
+    
+    saveCommentBtn.addEventListener('click', () => {
+        const pilot = document.getElementById('comment-pilot').value;
+        const name = document.getElementById('comment-name').value;
+        const text = document.getElementById('comment-text').value;
+        
+        if (!name || !text) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        // Get current date
+        const currentDate = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Create new comment
+        const commentContainer = document.getElementById(`pilot-${pilot}-comments`);
+        const newComment = document.createElement('div');
+        newComment.className = 'bg-gray-50 rounded-lg p-4 shadow-sm';
+        newComment.innerHTML = `
+            <div class="flex justify-between">
+                <h4 class="text-sm font-medium text-gray-900">${name}</h4>
+                <span class="text-xs text-gray-500">${currentDate}</span>
+            </div>
+            <p class="text-sm text-gray-600 mt-2">${text}</p>
+        `;
+        
+        // Add to the top of the comments
+        commentContainer.insertBefore(newComment, commentContainer.firstChild);
+        
+        // Reset form and close modal
+        document.getElementById('comment-form').reset();
+        commentModal.classList.add('hidden');
+        
+        // Switch to comments tab
+        document.querySelector('[data-tab="comments"]').click();
+    });
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === escalationModal) {
+            escalationModal.classList.add('hidden');
+        }
+        if (e.target === commentModal) {
+            commentModal.classList.add('hidden');
+        }
+        if (e.target === confirmModal) {
+            confirmModal.classList.add('hidden');
+            escalationToResolve = null;
+        }
+    });
+</script>
+</body>
+</html>

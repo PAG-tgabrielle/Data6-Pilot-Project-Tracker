@@ -1,0 +1,48 @@
+.enhanced-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: start;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  margin-top: 4px;
+  margin-right: 8px;
+}
+
+.timeline-line::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 16px;
+  height: 100%;
+  width: 2px;
+  background-color: #e5e7eb; /* gray-200 */
+}
+
+.rag-green {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.rag-amber {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.rag-red {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
